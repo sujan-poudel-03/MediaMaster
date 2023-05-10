@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MediaMaster</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_image_fragment">Hello image fragment</string>
+    <string name="hello_audio_fragment">Hello audio fragment</string>
+    <string name="hello_video_fragment">Hello video fragment</string>
+
+    <string-array name="array_foodItems">
+        <item>Mo:Mo</item>
+        <item>Pizza</item>
+        <item>Sausage</item>
+        <item>Aalu Paratha</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

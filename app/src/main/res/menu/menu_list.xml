@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <item
+        android:id="@+id/search_icon"
+        android:title="search"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/listview_icon"
+        android:title="listview"
+        android:icon="@drawable/baseline_dehaze_24"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/gridview_icon"
+        android:title="gridview"
+        android:icon="@drawable/baseline_grid_view_24"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/recyclerview_icon"
+        android:title="recyclerview"
+        android:icon="@drawable/baseline_view_list_24"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/more"
+        android:title=""
+        android:icon="@drawable/baseline_more_vert_24"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/report_app"
+                android:icon="@drawable/baseline_report_24"
+                android:title="Report App"
+                app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/close_app"
+                android:icon="@drawable/baseline_close_24"
+                android:title="Close App"
+                app:showAsAction="ifRoom"/>
+
+        </menu>
+
+    </item>
+
+
+</menu>
