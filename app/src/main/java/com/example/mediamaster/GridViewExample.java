@@ -29,7 +29,7 @@ public class GridViewExample extends AppCompatActivity {
         GridView gridView = (GridView) findViewById(R.id.grid_view_item);
 //        String noodels[] = {"waiwai","rumpum", "current","preeti"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,noodels);
         gridView.setAdapter(adapter);
 
@@ -41,7 +41,8 @@ public class GridViewExample extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                PopupMenu popupMenu = new PopupMenu(GridViewExample.this, view);
+
+                PopupMenu popupMenu = new PopupMenu(GridViewExample.this, view);   // Popup menu for item clicked
                 popupMenu.getMenuInflater().inflate(R.menu.context_menu,popupMenu.getMenu());
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -81,15 +82,14 @@ public class GridViewExample extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.update:
-                Toast.makeText(getApplicationContext(),"Updata clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Update clicked", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.delete:
 
-                noodels.remove(position);
-
-                // notify the adapter that the data set has changed
-                adapter.notifyDataSetChanged();
-
+                if (noodels != null && position >= 0 && position < noodels.size()) {
+                    noodels.remove(position);
+                    adapter.notifyDataSetChanged();    // notify the adapter that the data set has changed
+                }
                 Toast.makeText(getApplicationContext(), "Delete Clicked", Toast.LENGTH_SHORT).show();
                 return true;
             default:
