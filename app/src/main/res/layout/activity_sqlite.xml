@@ -82,75 +82,84 @@
                 android:hint="Phone Number..." />
 
         </TableRow>
+    </TableLayout>
 
-        <TableRow
+
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/btn_submit"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:text="Insert"
+                android:background="@color/teal_700"
+                android:layout_marginStart="80dp"
                 android:onClick="addData"
-                tools:ignore="ExtraText" />
+                />
 
             <Button
                 android:id="@+id/btn_read"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:text="Read"
+                android:layout_marginStart="30dp"
                 android:onClick="readData"/>
 
-        </TableRow>
-    </TableLayout>
+        </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/table_display_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:layout_marginTop="20dp">
+<!--    <TableLayout-->
+<!--        android:id="@+id/table_display_data"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:stretchColumns="*">-->
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--        &lt;!&ndash; Table headers &ndash;&gt;-->
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:text="ID"-->
+<!--                android:textStyle="bold"-->
+<!--                android:padding="8dp" />-->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ID"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:text="Name"-->
+<!--                android:textStyle="bold"-->
+<!--                android:padding="8dp" />-->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Name"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:text="Address"-->
+<!--                android:textStyle="bold"-->
+<!--                android:padding="8dp" />-->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Address"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:text="Phone"-->
+<!--                android:textStyle="bold"-->
+<!--                android:padding="8dp" />-->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Phone"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" /> &lt;!&ndash; Placeholder for update button &ndash;&gt;-->
 
-        </TableRow>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" /> &lt;!&ndash; Placeholder for delete button &ndash;&gt;-->
+<!--        </TableRow>-->
+<!--    </TableLayout>-->
 
-    </TableLayout>
+
+
 </LinearLayout>
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/update_card_view_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
 
 
