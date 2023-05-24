@@ -25,7 +25,7 @@ import android.widget.Toast;
 public class SqliteDisplayActivity extends AppCompatActivity {
 
     private EditText editTextName, editTextAddress, editTextPhone;
-    private DBHelper dbHelper;
+    private DatabaseHelper databaseHelper;
 
     private FrameLayout updateCardViewContainer;
     private View updateCardView;
@@ -39,7 +39,7 @@ public class SqliteDisplayActivity extends AppCompatActivity {
         updateCardViewContainer = findViewById(R.id.update_card_view_container);
 
 
-        dbHelper = new DBHelper(this);
+        databaseHelper = new DatabaseHelper(this);
 
         // Read and display the data
         readData(null);
@@ -48,7 +48,7 @@ public class SqliteDisplayActivity extends AppCompatActivity {
     }
 
     public void readData(View view) {
-        Cursor cursor = dbHelper.readData();
+        Cursor cursor = databaseHelper.readData();
 
         TableLayout tableLayout = findViewById(R.id.table_display_data);
 
@@ -56,9 +56,9 @@ public class SqliteDisplayActivity extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_NAME));
-            String address = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_ADDRESS));
-            String phone = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_PHONE));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(databaseHelper.COLUMN_NAME));
+            String address = cursor.getString(cursor.getColumnIndexOrThrow(databaseHelper.COLUMN_ADDRESS));
+            String phone = cursor.getString(cursor.getColumnIndexOrThrow(databaseHelper.COLUMN_PHONE));
 
 
             TableRow row = new TableRow(this);
@@ -124,7 +124,7 @@ public class SqliteDisplayActivity extends AppCompatActivity {
                             String updatedPhone = editTextUpdatePhone.getText().toString();
 
                             // Update the values in the SQLite database
-                            boolean isUpdated = dbHelper.updateData(id, updatedName, updatedAddress, updatedPhone);
+                            boolean isUpdated = databaseHelper.updateData(id, updatedName, updatedAddress, updatedPhone);
 
                             if (isUpdated) {
                                 Toast.makeText(SqliteDisplayActivity.this, "Data updated successfully", Toast.LENGTH_SHORT).show();
@@ -147,9 +147,10 @@ public class SqliteDisplayActivity extends AppCompatActivity {
                 buttonDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String deleteQuery = "DELETE FROM " + DBHelper.TABLE_NAME + " WHERE id = " + id;
 
-                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                        String deleteQuery = "DELETE FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = " + id;
+
+                        SQLiteDatabase db = databaseHelper.getWritableDatabase();
                         db.execSQL(deleteQuery);
                         db.close();
 
@@ -175,79 +176,4 @@ public class SqliteDisplayActivity extends AppCompatActivity {
         }
     }
 
-}
-
-class DBHelper extends SQLiteOpenHelper {
-
-    private static final String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME = "contact_table";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_ADDRESS = "address";
-    public static final String COLUMN_PHONE = "phone";
-
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NAME + " TEXT, " +
-                COLUMN_ADDRESS + " TEXT, " +
-                COLUMN_PHONE + " TEXT)";
-        db.execSQL(createTableQuery);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String dropTableQuery = "DROP TABLE IF EXISTS " + TABLE_NAME;
-        db.execSQL(dropTableQuery);
-        onCreate(db);
-    }
-
-    public long addData(String name, String address, String phone) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_ADDRESS, address);
-        values.put(COLUMN_PHONE, phone);
-
-        long newRowId = db.insert(TABLE_NAME, null, values);
-        db.close();
-        return newRowId;
-    }
-
-    public Cursor readData() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = {"id", COLUMN_NAME, COLUMN_ADDRESS, COLUMN_PHONE};
-        Cursor cursor = db.query(TABLE_NAME, projection, null, null, null, null, null);
-        return cursor;
-    }
-
-    public boolean updateData(int id, String name, String address, String phone) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_ADDRESS, address);
-        values.put(COLUMN_PHONE, phone);
-
-        String selection = "id = ?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        int count = db.update(TABLE_NAME, values, selection, selectionArgs);
-        db.close();
-        return count > 0; // Return true if the update was successful
-    }
-
-    public int deleteData(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selection = "id = ?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        int count = db.delete(TABLE_NAME, selection, selectionArgs);
-        db.close();
-        return count; // Return the number of rows deleted
-    }
 }
